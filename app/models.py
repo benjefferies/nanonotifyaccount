@@ -26,6 +26,10 @@ class User(Base):
     email = Column(String, primary_key=True)
     password = Column(String, nullable=False)
 
+    def __init__(self, email, password):
+        self.email = email
+        self.password = password
+
     @staticmethod
     def is_authenticated():
         return True
