@@ -63,10 +63,19 @@ def register():
 
 @nano.route('/subscribe', methods=['POST'])
 def subscribe():
-    subscription = Subscription(email=current_user.email, account=request.form['account'])
-    db_session.add(subscription)
-    subscriptions = db_session.query(Subscription).filter(User.email == current_user.email).all()
-    subscriptions.append(subscription)
+    account = request.form['account']
+    if request.form['action'] == 'delete':
+        subscriptions = []
+        for subscription in db_session.query(Subscription).filter(User.email == current_user.email).all():
+            if not subscription.account == account:
+                subscriptions.append(subscription)
+            else:
+                db_session.delete(subscription)
+    else:
+        subscription = Subscription(email=current_user.email, account=account)
+        db_session.add(subscription)
+        subscriptions = db_session.query(Subscription).filter(User.email == current_user.email).all()
+        subscriptions.append(subscription)
     return render_template('subscribe.html', subscriptions=subscriptions)
 
 

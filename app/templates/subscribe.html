@@ -12,18 +12,26 @@
 <form action="subscribe" method="post">
     Account: <input type="text" name="account"><br>
     <input type="submit" value="Subscribe">
+    <input type="hidden" name="action" value="subscribe">
 </form>
 
 <table>
     <thead>
     <tr>
-        <td>Account</td>
+        <td>Subscriptions</td>
     </tr>
     </thead>
     <tbody>
     {% for subscription in subscriptions %}
     <tr>
         <td>{{subscription.account}}</td>
+        <td>
+            <form method="post">
+                <input hidden="hidden" name="account" value="{{subscription.account}}">
+                <input type="hidden" name="action" value="delete">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
     </tr>
     {% endfor %}
     <tr>
