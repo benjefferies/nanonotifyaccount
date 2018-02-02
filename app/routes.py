@@ -80,7 +80,7 @@ def subscribe():
     if request.form['action'] == 'delete':
         subscriptions = []
         logger.info(f'{current_user.email} deleting subscription to {account}')
-        for subscription in db_session.query(Subscription).filter(User.email == current_user.email).all():
+        for subscription in get_subscriptions_for_user():
             if not subscription.account == account:
                 subscriptions.append(subscription)
             else:
@@ -89,14 +89,19 @@ def subscribe():
         logger.info(f'{current_user.email} adding subscription to {account}')
         subscription = Subscription(email=current_user.email, account=account)
         db_session.add(subscription)
-        subscriptions = db_session.query(Subscription).filter(User.email == current_user.email).all()
+        subscriptions = get_subscriptions_for_user()
         subscriptions.append(subscription)
     return render_template('subscribe.html', subscriptions=subscriptions)
+
+
+def get_subscriptions_for_user():
+    return db_session.query(Subscription).filter(Subscription.email == current_user.email).all()
 
 
 @nano.route('/subscribe', methods=['GET'])
 @login_required
 def get_subscribe():
-    logger.info(f'{current_user.email} getting subscriptions')
-    subscriptions = db_session.query(Subscription).filter(User.email == current_user.email).all()
+    email = current_user.email
+    logger.info(f'{email} getting subscriptions')
+    subscriptions = db_session.query(Subscription).filter(Subscription.email == email).all()
     return render_template('subscribe.html', subscriptions=subscriptions)
