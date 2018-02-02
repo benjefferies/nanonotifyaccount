@@ -1,5 +1,8 @@
+import datetime
+
 import bcrypt
-from flask import render_template, Blueprint, url_for, request
+import flask
+from flask import render_template, Blueprint, url_for, request, session
 from flask_login import login_required, login_user, current_user
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.utils import redirect
@@ -21,6 +24,14 @@ def shutdown_session(exception=None):
     else:
         db_session.rollback()
     db_session.remove()
+
+
+@nano.before_request
+def before_request():
+    flask.session.permanent = True
+    nano.permanent_session_lifetime = datetime.timedelta(minutes=30)
+    flask.session.modified = True
+    flask.g.user = current_user
 
 
 @nano.route('/', methods=['POST'])

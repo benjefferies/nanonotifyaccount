@@ -1,3 +1,5 @@
+import datetime
+
 from flask import Flask
 from flask_login import LoginManager
 from werkzeug.utils import redirect
@@ -7,6 +9,7 @@ from app.models import User
 from app.routes import nano
 
 app = Flask(__name__)
+PERMANENT_SESSION_LIFETIME = datetime.timedelta(minutes=30)
 app.secret_key = 'secret'
 app.register_blueprint(nano)
 login_manager = LoginManager()
