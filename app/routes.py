@@ -39,12 +39,26 @@ def login():
     email = request.form['email']
     password = request.form['password']
     user = db_session.query(User).filter(User.email == email).first()
-    user.password = bcrypt.hashpw('password'.encode(), bcrypt.gensalt())
+    user.password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     if user and bcrypt.checkpw(password.encode(), user.password):
         login_user(user)
         return redirect(url_for('.subscribe'))
     else:
         return render_template('index.html', error='Invalid email or password')
+
+
+@nano.route('/register', methods=['POST'])
+def get_register():
+    email = request.form['email']
+    password = bcrypt.hashpw(request.form['password'].encode(), bcrypt.gensalt())
+    user = User(email, password)
+    db_session.add(user)
+    return redirect(url_for('.get_login'))
+
+
+@nano.route('/register', methods=['GET'])
+def register():
+    return render_template('register.html')
 
 
 @nano.route('/subscribe', methods=['POST'])
