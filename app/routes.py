@@ -77,19 +77,18 @@ def get_login():
 @login_required
 def subscribe():
     account = request.form['account']
+    subscriptions = get_subscriptions_for_user()
     if request.form['action'] == 'delete':
-        subscriptions = []
         logger.info(f'{current_user.email} deleting subscription to {account}')
-        for subscription in get_subscriptions_for_user():
-            if not subscription.account == account:
-                subscriptions.append(subscription)
-            else:
+        for subscription in subscriptions:
+            if subscription.account == account:
+                subscriptions.remove(subscription)
                 db_session.delete(subscription)
-    else:
+    elif not db_session.query(Subscription).filter(Subscription.email == current_user.email)\
+            .filter(Subscription.account == account).first():
         logger.info(f'{current_user.email} adding subscription to {account}')
         subscription = Subscription(email=current_user.email, account=account)
         db_session.add(subscription)
-        subscriptions = get_subscriptions_for_user()
         subscriptions.append(subscription)
     return render_template('subscribe.html', subscriptions=subscriptions)
 
