@@ -1,5 +1,6 @@
 import datetime
 
+import os
 from flask import Flask
 from flask_login import LoginManager
 from werkzeug.utils import redirect
@@ -10,7 +11,7 @@ from app.routes import nano
 
 app = Flask(__name__)
 PERMANENT_SESSION_LIFETIME = datetime.timedelta(minutes=30)
-app.secret_key = 'secret'
+app.secret_key = os.getenv('secret')
 app.register_blueprint(nano)
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -25,6 +26,7 @@ def load_user(email):
 @login_manager.unauthorized_handler
 def unauthorized_callback():
     return redirect('/')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
