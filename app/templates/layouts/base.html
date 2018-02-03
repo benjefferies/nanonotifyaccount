@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Nano Notify</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      &copy; Copyright 2018 by <a href="https://nanonotify.co">Echosoft Consultancy LTD</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>

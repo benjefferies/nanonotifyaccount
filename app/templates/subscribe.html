@@ -1,14 +1,5 @@
-<!doctype html>
-
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-
-    <title>RaiBlock Subscribe</title>
-
-</head>
-
-<body>
+{% extends "layouts/base.html" %}
+{% block content %}
 <form action="subscribe" method="post">
     Account: <input type="text" name="account"><br>
     <input type="submit" value="Subscribe">
@@ -38,5 +29,4 @@
     </tr>
     </tbody>
 </table>
-</body>
-</html>
+{% endblock %}
