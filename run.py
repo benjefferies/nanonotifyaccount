@@ -11,7 +11,7 @@ from app.routes import nano
 
 app = Flask(__name__)
 PERMANENT_SESSION_LIFETIME = datetime.timedelta(minutes=30)
-app.secret_key = os.getenv('secret')
+app.secret_key = os.getenv('BCRYPT_SECRET', 'secret')
 app.register_blueprint(nano)
 login_manager = LoginManager()
 login_manager.init_app(app)
