@@ -1,32 +1,37 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-<form action="subscribe" method="post">
-    Account: <input type="text" name="account"><br>
-    <input type="submit" value="Subscribe">
-    <input type="hidden" name="action" value="subscribe">
-</form>
-
-<table>
-    <thead>
-    <tr>
-        <td>Subscriptions</td>
-    </tr>
-    </thead>
-    <tbody>
-    {% for subscription in subscriptions %}
-    <tr>
-        <td>{{subscription.account}}</td>
-        <td>
-            <form method="post">
-                <input hidden="hidden" name="account" value="{{subscription.account}}">
-                <input type="hidden" name="action" value="delete">
-                <button type="submit">Delete</button>
+<div id="subscribe">
+    <div id="subscribe-logo">
+        <img src="static/css/resources/pictures/logo.svg" alt="Nano Logo">
+        <form action="subscribe" method="post">
+                <input class="text-input" placeholder="Account Address" type="text" name="account"><br>
+                <input class="button-input" type="submit" value="Subscribe">
+                <input type="hidden" name="action" value="subscribe">
             </form>
-        </td>
-    </tr>
-    {% endfor %}
-    <tr>
-    </tr>
-    </tbody>
-</table>
+            
+            <table>
+                <thead>
+                <tr>
+                    <td>Subscriptions</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for subscription in subscriptions %}
+                <tr>
+                    <td>{{subscription.account}}</td>
+                    <td>
+                        <form method="post">
+                            <input hidden="hidden" name="account" value="{{subscription.account}}">
+                            <input type="hidden" name="action" value="delete">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr>
+                </tr>
+                </tbody>
+            </table>
+    </div>
+</div>
 {% endblock %}

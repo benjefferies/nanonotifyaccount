@@ -1,0 +1,102 @@
+html {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    position: relative;
+    margin: 0;
+    min-height: 100%;
+    background: #005080; /* Old browsers */
+    background: -moz-linear-gradient(-45deg, #005080 0%, #6bc5f9 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(-45deg, #005080 0%,#6bc5f9 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(135deg, #005080 0%,#6bc5f9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#005080', endColorstr='#6bc5f9',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+#contents {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* .logo {
+    text-align: center;
+    width: 50%;
+    margin: 0px auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
+
+#subscribe-logo {
+    text-align: center;
+}
+
+#subscribe-logo img {
+    max-height: 50%;
+    max-width: 40%;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    max-height: 70%;
+    max-width: 70%;
+    margin-bottom: 30px;
+}
+
+.login-process {
+    padding: 15px;
+    width: 50%;
+    margin: 0px auto;
+}
+
+.text-input {
+    width: 100%;
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 3px;
+    padding: 8px;
+    margin: 4px;
+}
+
+.login-process .button-input {
+    text-decoration: none;
+    display: inline-block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: white;
+    margin: 10px;
+}
+
+.login-process .register-button {
+    text-decoration: none;
+    display: inline-block;
+    color: white;
+    font-size: 20px;
+    margin: 10px;
+}
+
+#subscribe {
+    text-align: center;
+    width: 50%;
+    margin: 0px auto;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -5%);
+}
+
+#subscribe .button-input {
+    text-decoration: none;
+    display: inline-block;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: white;
+    margin: 10px;
+}

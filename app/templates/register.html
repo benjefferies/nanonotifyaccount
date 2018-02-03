@@ -1,8 +1,13 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-<form method="post">
-    Email: <input type="text" name="email"><br>
-    Password: <input type="password" name="password"><br>
-    <input type="submit" value="Register">
-</form>
+<div class="logo">
+        <img src="static/css/resources/pictures/logo.svg" alt="Nano Logo">
+    <div class="login-process">
+        <form method="post">
+            <input placeholder="Email" class="text-input" type="text" name="email"><br>
+            <input placeholder="Password" class="text-input" type="password" name="password"><br>
+            <input class="button-input" type="submit" value="Register">
+        </form>
+    </div>
+</div>
 {% endblock %}
