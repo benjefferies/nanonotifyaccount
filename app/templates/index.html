@@ -1,5 +1,10 @@
 {% extends "layouts/base.html" %}
 {% block content %}
+
+{% if error %}
+<p>{{error}}</p>
+{% endif %}
+
 <form method="post">
     Email: <input type="text" name="email"><br>
     Password: <input type="password" name="password"><br>

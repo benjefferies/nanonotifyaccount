@@ -38,12 +38,17 @@ def before_request():
     flask.g.user = current_user
 
 
+@nano.app_errorhandler(Exception)
+def handle_exception(e):
+    logger.exception(str(e))
+    return render_template('error.html', error='Invalid email or password')
+
+
 @nano.route('/', methods=['POST'])
 def login():
     email = request.form['email']
     password = request.form['password']
     user = db_session.query(User).filter(User.email == email).first()
-    user.password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     logger.info(f'Attempt to login user {email}')
     if user and bcrypt.checkpw(password.encode(), user.password):
         logger.info(f'{email} logged in')
