@@ -1,5 +1,6 @@
 import datetime
 import logging
+import re
 
 import bcrypt
 import flask
@@ -84,7 +85,9 @@ def get_login():
 @nano.route('/subscribe', methods=['POST'])
 @login_required
 def subscribe():
-    account = request.form['account']
+    account = request.form.get('account')
+    if not account or not re.match('xrb_[a-zA-Z0-9]{60}', account):
+        return render_template('subscribe.html', error='Add a account in the correct format')
     subscriptions = get_subscriptions_for_user()
     if request.form['action'] == 'delete':
         logger.info(f'{current_user.email} deleting subscription to {account}')
