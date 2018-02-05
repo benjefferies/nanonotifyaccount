@@ -18,6 +18,9 @@
 
     <div class="row justify-content-md-center">
         <div class="login-process">
+            {% if error %}
+            <p class="error"><strong>{{error}}</strong></p>
+            {% endif %}
             <form method="post">
                 <input placeholder="Email" class="text-input" type="text" name="email"><br>
                 <input placeholder="Password" class="text-input" type="password" name="password"><br>

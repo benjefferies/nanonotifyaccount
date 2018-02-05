@@ -19,7 +19,7 @@
 <div class="row justify-content-md-center">
     <div class="login-process">
         {% if error %}
-        <p>{{error}}</p>
+        <p class="error"><strong>{{error}}</strong></p>
         {% endif %}
         <form method="post">
             <input placeholder="Email" class="text-input" type="text" name="email"><br>

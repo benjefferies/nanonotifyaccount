@@ -60,9 +60,12 @@ def login():
 
 @nano.route('/register', methods=['POST'])
 def get_register():
-    email = request.form['email']
+    email = request.form.get('email')
+    password = request.form.get('password')
+    if not email and not password:
+        return render_template('register.html', error='Enter a email and password')
     logger.info(f'Registering {email}')
-    password = bcrypt.hashpw(request.form['password'].encode(), bcrypt.gensalt())
+    password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     user = User(email, password)
     db_session.add(user)
     return redirect(url_for('.get_login'))
