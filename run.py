@@ -13,6 +13,7 @@ app = Flask(__name__)
 PERMANENT_SESSION_LIFETIME = datetime.timedelta(minutes=30)
 app.secret_key = os.getenv('BCRYPT_SECRET', 'secret')
 app.register_blueprint(nano)
+app.config['TEMPLATES_AUTO_RELOAD']=True
 login_manager = LoginManager()
 login_manager.init_app(app)
 init_db()
@@ -29,4 +30,6 @@ def unauthorized_callback():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+	app.run(host='0.0.0.0')
+	app.run(debug=True,use_reloader=True)
+	

@@ -28,6 +28,11 @@ body {
     transform: translate(-50%, -50%);
 } */
 
+.vertical-padding-50 {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
 #subscribe-logo {
     text-align: center;
 }
