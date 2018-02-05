@@ -136,3 +136,7 @@ body {
     color: white;
     margin: 10px;
 }
+
+.error {
+    color: #c30101;
+}
