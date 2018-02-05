@@ -1,13 +1,35 @@
 {% extends "layouts/base.html" %}
 {% block content %}
-<div class="logo">
-        <img src="static/css/resources/pictures/logo.svg" alt="Nano Logo">
-    <div class="login-process">
-        <form method="post">
-            <input placeholder="Email" class="text-input" type="text" name="email"><br>
-            <input placeholder="Password" class="text-input" type="password" name="password"><br>
-            <input class="button-input" type="submit" value="Register">
-        </form>
+    <div class="row">
+        <div class="col-12 vertical-padding-50"></div>
     </div>
-</div>
+
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <img src="static/css/resources/pictures/logo.svg" alt="Nano Logo">
+        </div>
+        <div class="col-3"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 vertical-padding-50"></div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="login-process">
+            <form method="post">
+                <input placeholder="Email" class="text-input" type="text" name="email"><br>
+                <input placeholder="Password" class="text-input" type="password" name="password"><br>
+                <div class="row">
+                    <div class="noselect col-md-6">
+                        <input class="button-input" type="submit" value="Register">
+                    </div>
+                    <div class="noselect col-md-6">
+                        <a href="/"><input class="button-input" data-lpignore="true" value="Back"></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
