@@ -63,8 +63,8 @@ def login():
 def get_register():
     email = request.form.get('email')
     password = request.form.get('password')
-    if not email and not password:
-        return render_template('register.html', error='Enter a email and password')
+    if not email or not re.match('(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', email) and not password:
+        return render_template('register.html', error='Enter a valid email and password')
     logger.info(f'Registering {email}')
     password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
     user = User(email, password)
