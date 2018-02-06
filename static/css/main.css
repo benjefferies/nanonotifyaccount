@@ -89,6 +89,10 @@ body {
     color: black !important;
 }
 
+.t-black {
+    color: black!important;
+}
+
 .text-input {
     width: 100%;
     -webkit-appearance: none;
@@ -141,5 +145,17 @@ body {
 }
 
 .error {
-    color: #c30101;
+    color: #e90000ee;
+}
+
+.mdl-card {
+    width: 600px;
+}
+
+.form {
+    width: 100%;
+}
+
+.inputbox-form {
+    width: 100%;
 }
