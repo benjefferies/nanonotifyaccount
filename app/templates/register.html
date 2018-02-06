@@ -16,8 +16,8 @@
 
     <div class="row">
         <div class="col-3"></div>
-        <div class="row justify-content-md-center mdl-card login-and-register-card mdl-shadow--2dp col-6">
-            <div class="mdl-card__title mdl-card--expand justify-content-center col-12">
+        <div class="justify-content-md-center mdl-card login-and-register-card mdl-shadow--2dp col-6">
+            <div class="mdl-card__title mdl-card--expand justify-content-center col-12 m-l-0 m-r-0">
                 {% if error %}
                     <p class="error"><strong>{{ error }}</strong></p>
                 {% endif %}
@@ -30,8 +30,11 @@
                         <input class="mdl-textfield__input" type="password" id="password" name="password">
                         <label class="mdl-textfield__label" for="password">Password</label>
                     </div>
-                    <div class="g-recaptcha" data-sitekey="6LdYpEQUAAAAALvPeHxWoAqPP3PzDJ4271Hw6HHc"></div>
-                <div class="row">
+                    <div id="captcha" class="t-centre">
+                        <div class="g-recaptcha p-b-15" data-sitekey="6LdYpEQUAAAAALvPeHxWoAqPP3PzDJ4271Hw6HHc"
+                             style="display: inline-block"></div>
+                    </div>
+                    <div class="row">
                         <div class="mdl-card__actions noselect col-6 t-centre" style="border-right: 1px solid #ddd">
                             <a href="">
                                 <button type="submit"
