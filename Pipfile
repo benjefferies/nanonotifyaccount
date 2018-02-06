@@ -18,6 +18,7 @@ flask-login = "*"
 flask-sqlalchemy = "*"
 bcrypt = "*"
 gunicorn = "*"
+requests = "*"
 
 
 [dev-packages]
