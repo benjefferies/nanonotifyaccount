@@ -17,17 +17,18 @@
         </div>
     </header>
     <main class="mdl-layout__content">
-        <div class="page-content">
-            {% block content %}
-            <div class="col-md-12">
-                <div class="t-centre m-20">
+        {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="t-centre">
                     {% if error %}
                     <p class="error"><strong>{{ error }}</strong></p>
                     {% endif %}
                 </div>
-                <div>
-                    <form class="d-flex m-20" action="subscribe" method="post">
-                        <input class="text-input col-md-9" placeholder="Account Address" type="text" name="account">
+                <div class="col-md-10 m-20">
+                    <form class="d-flex" action="subscribe" method="post">
+                        <input class="text-input" placeholder="Account Address" type="text" name="account">
                         <input type="hidden" name="action" value="subscribe">
                         <button type="submit"
                                 class="mdl-button mdl-js-button mdl-js-ripple-effect t-white" data-lpignore="true">
@@ -35,34 +36,36 @@
                         </button>
                     </form>
                 </div>
-                <div class="row">
-                    <table class="mdl-data-table mdl-js-data-table col-md-12">
-                        <thead>
-                        <tr>
-                            <th class="mdl-data-table__cell--non-numeric">Account</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for subscription in subscriptions %}
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric">{{ subscription.account }}</td>
-                            <td>
-                                <form method="post">
-                                    <input hidden="hidden" name="account" value="{{ subscription.account }}">
-                                    <input type="hidden" name="action" value="delete">
-                                    <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect"
-                                            data-lpignore="true">
-                                        <i class="material-icons">delete</i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
             </div>
-            {% endblock %}
+            <div class="row">
+                <div class="col-md-1"></div>
+                <table class="mdl-data-table mdl-js-data-table col-md-10 m-20">
+                    <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Account</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for subscription in subscriptions %}
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">{{ subscription.account }}</td>
+                        <td>
+                            <form method="post">
+                                <input hidden="hidden" name="account" value="{{ subscription.account }}">
+                                <input type="hidden" name="action" value="delete">
+                                <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                                        data-lpignore="true">
+                                    <i class="material-icons">delete</i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endblock %}
     </main>
 </div>
 {% endblock %}
