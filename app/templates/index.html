@@ -23,6 +23,9 @@
                     </div>
                     <div class="col"></div>
                 </div>
+                {% if error %}
+                    <p class="error t-centre p-t-10"><strong>{{ error }}</strong></p>
+                {% endif %}
                 <form class="max-width" method="post">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label max-width">
                         <input class="mdl-textfield__input" type="text" id="email" name="email">
@@ -54,5 +57,4 @@
         </div>
         <div class="col-3"></div>
     </div>
-
 {% endblock %}

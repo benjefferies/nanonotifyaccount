@@ -104,9 +104,9 @@ def get_login():
 @login_required
 def subscribe():
     account = request.form.get('account')
-    if not account or not re.match('xrb_[a-zA-Z0-9]{60}', account):
-        return render_template('subscribe.html', error='Add a account in the correct format')
     subscriptions = get_subscriptions_for_user()
+    if not account or not re.match('xrb_[a-zA-Z0-9]{60}', account):
+        return render_template('subscribe.html', error='Add an account in the correct format', subscriptions=subscriptions)
     if request.form['action'] == 'delete':
         logger.info(f'{current_user.email} deleting subscription to {account}')
         for subscription in subscriptions:

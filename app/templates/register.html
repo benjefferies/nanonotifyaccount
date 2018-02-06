@@ -16,12 +16,12 @@
 
     <div class="row">
         <div class="col-3"></div>
-        <div class="justify-content-md-center mdl-card login-and-register-card mdl-shadow--2dp col-6">
-            <div class="mdl-card__title mdl-card--expand justify-content-center col-12 m-l-0 m-r-0">
+        <div class="justify-content-md-center mdl-card login-and-register-card mdl-shadow--2dp p-b-10 col-6">
+            <div class="justify-content-center col-12">
                 {% if error %}
-                    <p class="error"><strong>{{ error }}</strong></p>
+                    <p class="error t-centre p-t-10"><strong>{{ error }}</strong></p>
                 {% endif %}
-                <form class="max-width" method="post">
+                <form class="max-width p-t-10" method="post">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label max-width">
                         <input class="mdl-textfield__input" type="text" id="email" name="email">
                         <label class="mdl-textfield__label" for="email">Email</label>
