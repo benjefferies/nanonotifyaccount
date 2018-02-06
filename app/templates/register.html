@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-3"></div>
-        <div class="col-6">
+        <div class="col-6 t-centre">
             <img src="static/css/resources/pictures/logo.svg" alt="Nano Logo">
         </div>
         <div class="col-3"></div>
@@ -19,17 +19,23 @@
     <div class="row justify-content-md-center">
         <div class="login-process">
             {% if error %}
-            <p class="error"><strong>{{error}}</strong></p>
+                <p class="error"><strong>{{ error }}</strong></p>
             {% endif %}
             <form method="post">
                 <input placeholder="Email" class="text-input" type="text" name="email"><br>
                 <input placeholder="Password" class="text-input" type="password" name="password"><br>
                 <div class="row">
-                    <div class="noselect col-md-6">
-                        <input class="button-input" type="submit" value="Register">
+                    <div class="noselect col-md-6 t-centre">
+                        <button type="submit"
+                                class="mdl-button mdl-js-button mdl-js-ripple-effect t-white" data-lpignore="true">
+                            Register
+                        </button>
                     </div>
-                    <div class="noselect col-md-6">
-                        <a href="/"><input class="button-input" data-lpignore="true" value="Back"></a>
+                    <div class="noselect col-md-6 t-centre">
+                        <button onclick="location.href='/'" type="button"
+                                class="mdl-button mdl-js-button mdl-js-ripple-effect t-white" data-lpignore="true">
+                            Back
+                        </button>
                     </div>
                 </div>
             </form>
