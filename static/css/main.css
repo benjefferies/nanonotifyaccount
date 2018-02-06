@@ -33,10 +33,6 @@ body {
     padding-bottom: 25px;
 }
 
-#subscribe-logo {
-    text-align: center;
-}
-
 #subscribe-logo img {
     max-height: 50%;
     max-width: 40%;
@@ -89,6 +85,14 @@ body {
     color: black !important;
 }
 
+.d-flex {
+    display: flex;
+}
+
+.m-20 {
+    margin: 20px;
+}
+
 .text-input {
     width: 100%;
     -webkit-appearance: none;
@@ -116,16 +120,6 @@ body {
     color: white;
     font-size: 20px;
     margin: 10px;
-}
-
-#subscribe {
-    text-align: center;
-    width: 50%;
-    margin: 0px auto;
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, -5%);
 }
 
 #subscribe .button-input {
