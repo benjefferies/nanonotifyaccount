@@ -24,9 +24,32 @@ body {
     margin: 0 auto;
 }
 
-.vertical-padding-50 {
+.p-t-25 {
     padding-top: 25px;
+}
+
+.p-b-25 {
     padding-bottom: 25px;
+}
+
+.p-t-15 {
+    padding-top: 15px;
+}
+
+.p-b-15 {
+    padding-bottom: 15px;
+}
+
+.p-t-10 {
+    padding-top: 10px;
+}
+
+.p-b-10 {
+    padding-bottom: 10px;
+}
+
+#subscribe-logo {
+    text-align: center;
 }
 
 #subscribe-logo img {
@@ -81,6 +104,10 @@ body {
     color: black !important;
 }
 
+.t-black {
+    color: black !important;
+}
+
 .d-flex {
     display: flex;
 }
@@ -88,7 +115,6 @@ body {
 .m-20 {
     margin-top: 20px;
 }
-
 
 .text-input {
     width: 100%;
@@ -131,6 +157,18 @@ body {
     margin: 10px;
 }
 
+h1 {
+    font-family: 'Montserrat', sans-serif;
+}
+
 .error {
-    color: #c30101;
+    color: #e90000ee;
+}
+
+.login-and-register-card {
+    width: 600px;
+}
+
+.max-width {
+    width: 100%;
 }
