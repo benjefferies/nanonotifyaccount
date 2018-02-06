@@ -1,71 +1,73 @@
 {% extends "layouts/base.html" %}
 {% block nav %}
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header nav-color">
-        <div class="mdl-layout__header-row">
-            <div class="mdl-layout-title t-white">
-                <img class="navbar-logo" src="static/css/resources/pictures/logo.svg" alt="Nano Logo"> NanoNotify
-            </div>
-            <div class="mdl-layout-spacer"></div>
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link t-white" href="/logout">
-                    <button class="mdl-button mdl-js-button mdl-button--raised t-black bg-white" data-lpignore="true">
-                        Logout
-                    </button>
-                </a>
-            </nav>
-        </div>
-    </header>
-    <main class="mdl-layout__content">
-        {% block content %}
-        <div class="container">
-            <div class="row">
-                <div class="col-md-1"></div>
-                <div class="t-centre">
-                    {% if error %}
-                    <p class="error"><strong>{{ error }}</strong></p>
-                    {% endif %}
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header nav-color">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-title t-white">
+                    <img class="navbar-logo" src="static/css/resources/pictures/logo.svg" alt="Nano Logo"> NanoNotify
                 </div>
-                <div class="col-md-10 m-20">
-                    <form class="d-flex" action="subscribe" method="post">
-                        <input class="text-input" placeholder="Account Address" type="text" name="account">
-                        <input type="hidden" name="action" value="subscribe">
-                        <button type="submit"
-                                class="mdl-button mdl-js-button mdl-js-ripple-effect t-white" data-lpignore="true">
-                            Subscribe
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link t-white" href="/logout">
+                        <button class="mdl-button mdl-js-button mdl-button--raised t-black bg-white"
+                                data-lpignore="true">
+                            Logout
                         </button>
-                    </form>
-                </div>
+                    </a>
+                </nav>
             </div>
-            <div class="row">
-                <div class="col-md-1"></div>
-                <table class="mdl-data-table mdl-js-data-table col-md-10 m-20">
-                    <thead>
-                    <tr>
-                        <th class="mdl-data-table__cell--non-numeric">Account</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for subscription in subscriptions %}
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric">{{ subscription.account }}</td>
-                        <td>
-                            <form method="post">
-                                <input hidden="hidden" name="account" value="{{ subscription.account }}">
-                                <input type="hidden" name="action" value="delete">
-                                <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect"
+        </header>
+        <main class="mdl-layout__content">
+            {% block content %}
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10 m-20">
+                            <div class="t-centre">
+                                {% if error %}
+                                    <p class="error"><strong>{{ error }}</strong></p>
+                                {% endif %}
+                            </div>
+                            <form class="d-flex" action="subscribe" method="post">
+                                <input class="text-input" placeholder="Account Address" type="text" name="account">
+                                <input type="hidden" name="action" value="subscribe">
+                                <button type="submit"
+                                        class="mdl-button mdl-js-button mdl-js-ripple-effect t-white"
                                         data-lpignore="true">
-                                    <i class="material-icons">delete</i>
+                                    Subscribe
                                 </button>
                             </form>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        {% endblock %}
-    </main>
-</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <table class="mdl-data-table mdl-js-data-table col-md-10 m-20">
+                            <thead>
+                            <tr>
+                                <th class="mdl-data-table__cell--non-numeric">Account</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for subscription in subscriptions %}
+                                <tr>
+                                    <td class="mdl-data-table__cell--non-numeric">{{ subscription.account }}</td>
+                                    <td>
+                                        <form method="post">
+                                            <input hidden="hidden" name="account" value="{{ subscription.account }}">
+                                            <input type="hidden" name="action" value="delete">
+                                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect"
+                                                    data-lpignore="true">
+                                                <i class="material-icons">delete</i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endblock %}
+        </main>
+    </div>
 {% endblock %}
