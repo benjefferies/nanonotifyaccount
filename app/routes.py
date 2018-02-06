@@ -5,13 +5,12 @@ import re
 import bcrypt
 import flask
 from flask import render_template, Blueprint, url_for, request, session
-from flask_login import login_required, login_user, current_user
+from flask_login import login_required, login_user, current_user, logout_user
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.utils import redirect
 
 from app.database import db_session
 from app.models import Subscription, User
-
 
 logger = logging.getLogger(__name__)
 
@@ -59,6 +58,13 @@ def login():
         return render_template('index.html', error='Invalid email or password')
 
 
+@nano.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('.login'))
+
+
 @nano.route('/register', methods=['POST'])
 def get_register():
     email = request.form.get('email')
@@ -95,7 +101,7 @@ def subscribe():
             if subscription.account == account:
                 subscriptions.remove(subscription)
                 db_session.delete(subscription)
-    elif not db_session.query(Subscription).filter(Subscription.email == current_user.email)\
+    elif not db_session.query(Subscription).filter(Subscription.email == current_user.email) \
             .filter(Subscription.account == account).first():
         logger.info(f'{current_user.email} adding subscription to {account}')
         subscription = Subscription(email=current_user.email, account=account)

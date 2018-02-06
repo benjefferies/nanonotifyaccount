@@ -1,40 +1,60 @@
 {% extends "layouts/base.html" %}
-{% block content %}
-<div id="subscribe">
-    <div id="subscribe-logo">
-        <img src="static/css/resources/pictures/logo.svg" alt="Nano Logo">
-        {% if error %}
-        <p class="error"><strong>{{error}}</strong></p>
-        {% endif %}
-        <form action="subscribe" method="post">
-            <input class="text-input" placeholder="Account Address" type="text" name="account"><br>
-            <input class="button-input" type="submit" value="Subscribe">
-            <input type="hidden" name="action" value="subscribe">
-        </form>
-
-        <table>
-            <thead>
-            <tr>
-                <td>Subscriptions</td>
-            </tr>
-            </thead>
-            <tbody>
-            {% for subscription in subscriptions %}
-            <tr>
-                <td>{{subscription.account}}</td>
-                <td>
-                    <form method="post">
-                        <input hidden="hidden" name="account" value="{{subscription.account}}">
-                        <input type="hidden" name="action" value="delete">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-            <tr>
-            </tr>
-            </tbody>
-        </table>
+{% block nav %}
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header nav-color">
+            <div class="mdl-layout__header-row">
+                <div class="mdl-layout-title t-white">
+                    <img class="navbar-logo" src="static/css/resources/pictures/logo.svg" alt="Nano Logo"> NanoNotify
+                </div>
+                <div class="mdl-layout-spacer"></div>
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link t-white" href="/logout">
+                        <button class="mdl-button mdl-js-button mdl-button--raised t-black bg-white" data-lpignore="true">
+                            Logout
+                        </button>
+                    </a>
+                </nav>
+            </div>
+        </header>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                {% block content %}
+                    <div id="subscribe">
+                        {% if error %}
+                            <p class="error"><strong>{{ error }}</strong></p>
+                        {% endif %}
+                        <form action="subscribe" method="post">
+                            <input class="text-input" placeholder="Account Address" type="text" name="account"><br>
+                            <input class="button-input" type="submit" value="Subscribe">
+                            <input type="hidden" name="action" value="subscribe">
+                        </form>
+                        <table>
+                            <thead>
+                            <tr>
+                                <td>Subscriptions</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for subscription in subscriptions %}
+                                <tr>
+                                    <td>{{ subscription.account }}</td>
+                                    <td>
+                                        <form method="post">
+                                            <input hidden="hidden" name="account"
+                                                   value="{{ subscription.account }}">
+                                            <input type="hidden" name="action" value="delete">
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            <tr>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                {% endblock %}
+        </main>
     </div>
-</div>
 {% endblock %}
