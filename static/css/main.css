@@ -66,24 +66,28 @@ body {
                                      supported by Chrome and Opera */
 }
 
-.float-right {
+.f-right {
     float: right;
 }
 
-.float-left {
+.f-left {
     float: left
 }
 
-.text-right {
+.t-right {
     text-align: right;
 }
 
-.text-left {
+.t-left {
     text-align: left;
 }
 
-.centre {
-    text-align: center;
+.t-centre {
+    text-align: center!important;
+}
+
+.t-white {
+    color: white!important;
 }
 
 .text-input {
