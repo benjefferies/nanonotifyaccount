@@ -1,0 +1,3 @@
+import os
+
+RECAPTCHA_SECRET=os.getenv('RECAPTCHA_SECRET')

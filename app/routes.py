@@ -4,11 +4,13 @@ import re
 
 import bcrypt
 import flask
+import requests
 from flask import render_template, Blueprint, url_for, request, session
 from flask_login import login_required, login_user, current_user, logout_user
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.utils import redirect
 
+from app.config import RECAPTCHA_SECRET
 from app.database import db_session
 from app.models import Subscription, User
 
@@ -67,6 +69,11 @@ def logout():
 
 @nano.route('/register', methods=['POST'])
 def get_register():
+    data = {'secret': RECAPTCHA_SECRET, 'response': request.form.get('g-recaptcha-response'),
+            'remoteip': request.remote_addr}
+    response = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data).json()
+    if not response.get('success'):
+        return render_template('register.html', error='Invalid reCAPTCHA')
     email = request.form.get('email')
     password = request.form.get('password')
     if not email or not password or not re.match('(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)', email):
