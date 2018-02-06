@@ -7,11 +7,7 @@ body {
     position: relative;
     margin: 0;
     min-height: 100%;
-    background: #005080; /* Old browsers */
-    background: -moz-linear-gradient(-45deg, #005080 0%, #6bc5f9 100%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(-45deg, #005080 0%, #6bc5f9 100%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(135deg, #005080 0%, #6bc5f9 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#005080', endColorstr='#6bc5f9', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+    background: #A2CCE2;
 }
 
 #contents {
@@ -19,7 +15,7 @@ body {
 }
 
 .nav-color {
-    background-color: #8c8b8a !important;
+    background-color: #306E8F !important;
 }
 
 .navbar-logo {
@@ -112,6 +108,14 @@ body {
     color: black !important;
 }
 
+.d-flex {
+    display: flex;
+}
+
+.m-20 {
+    margin-top: 20px;
+}
+
 .text-input {
     width: 100%;
     -webkit-appearance: none;
@@ -139,16 +143,6 @@ body {
     color: white;
     font-size: 20px;
     margin: 10px;
-}
-
-#subscribe {
-    text-align: center;
-    width: 50%;
-    margin: 0px auto;
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, -5%);
 }
 
 #subscribe .button-input {
