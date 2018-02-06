@@ -18,15 +18,15 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
-/* .logo {
-    text-align: center;
-    width: 50%;
-    margin: 0px auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
+.nav-color {
+    background-color: #8c8b8a !important;
+}
+
+.navbar-logo {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto;
+}
 
 .vertical-padding-50 {
     padding-top: 25px;
@@ -40,12 +40,6 @@ body {
 #subscribe-logo img {
     max-height: 50%;
     max-width: 40%;
-    margin-bottom: 30px;
-}
-
-.logo img {
-    max-height: 70%;
-    max-width: 70%;
     margin-bottom: 30px;
 }
 
@@ -83,11 +77,16 @@ body {
 }
 
 .t-centre {
-    text-align: center!important;
+    text-align: center !important;
 }
 
 .t-white {
-    color: white!important;
+    color: white !important;
+}
+
+.bg-white {
+    background-color: white !important;
+    color: black !important;
 }
 
 .text-input {
