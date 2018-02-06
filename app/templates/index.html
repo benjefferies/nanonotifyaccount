@@ -1,51 +1,59 @@
-{% extends "layouts/base.html" %} {% block content %}
-<div class="row" xmlns="http://www.w3.org/1999/html">
-    <div class="col-12 vertical-padding-50"></div>
-</div>
-
-<div class="row">
-    <div class="col-3"></div>
-    <div class="col-6 t-centre">
-        <img src="static/css/resources/pictures/logo.svg" alt="Nano Logo">
+{% extends "layouts/base.html" %}
+{% block content %}
+    <div class="row" xmlns="http://www.w3.org/1999/html">
+        <div class="col-12 vertical-padding-50"></div>
     </div>
-    <div class="col-3"></div>
-</div>
 
-<div class="row">
-    <div class="col-12 vertical-padding-50"></div>
-</div>
-
-<div class="row">
-    <div class="col-3"></div>
-    <div class="row justify-content-md-center mdl-card mdl-shadow--2dp col-6">
-        <div class="mdl-card__title mdl-card--expand justify-content-center col-12">
-            <form class="form" method="post">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label inputbox-form">
-                    <input class="mdl-textfield__input" type="text" id="email" name="email">
-                    <label class="mdl-textfield__label" for="email">Email</label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label inputbox-form">
-                    <input class="mdl-textfield__input" type="password" id="password" name="password">
-                    <label class="mdl-textfield__label" for="password">Password</label>
-                </div>
-                <div class="row">
-                    <div class="mdl-card__actions noselect col-6 t-centre" style="border-right: 1px solid #ddd">
-                        <a href="">
-                            <button class="mdl-button mdl-js-button mdl-js-ripple-effect t-black" data-lpignore="true">
-                                Login
-                            </button>
-                        </a>
-                    </div>
-                    <div class="mdl-card__actions noselect col-6 t-centre">
-                        <button onclick="location.href='/register'" type="button" class="mdl-button mdl-js-button mdl-js-ripple-effect t-black" data-lpignore="true">
-                            Sign Up
-                        </button>
-                    </div>
-                </div>
-            </form>
+    <div class="row p-b-25 p-t-25">
+        <div class="col-3"></div>
+        <div class="col-6 t-centre">
+            <img src="static/css/resources/pictures/logo.svg" alt="Nano Logo">
         </div>
+        <div class="col-3"></div>
     </div>
-    <div class="col-3"></div>
-</div>
+
+    <div class="row">.
+        <div class="col-3"></div>
+        <div class="justify-content-md-center mdl-card login-and-register-card mdl-shadow--2dp p-b-10 col-6">
+
+            <div class="justify-content-center col-12">
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col mdl-card__title mdl-card--expand">
+                        <h1 class="mdl-card__title-text">NanoNotify</h1>
+                    </div>
+                    <div class="col"></div>
+                </div>
+                <form class="max-width" method="post">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label max-width">
+                        <input class="mdl-textfield__input" type="text" id="email" name="email">
+                        <label class="mdl-textfield__label" for="email">Email</label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label max-width">
+                        <input class="mdl-textfield__input" type="password" id="password" name="password">
+                        <label class="mdl-textfield__label" for="password">Password</label>
+                    </div>
+                    <div class="row">
+                        <div class="mdl-card__actions noselect col-6 t-centre" style="border-right: 1px solid #ddd">
+                            <a href="">
+                                <button class="mdl-button mdl-js-button mdl-js-ripple-effect t-black max-width"
+                                        data-lpignore="true">
+                                    Login
+                                </button>
+                            </a>
+                        </div>
+                        <div class="mdl-card__actions noselect col-6 t-centre">
+                            <button onclick="location.href='/register'" type="button"
+                                    class="mdl-button mdl-js-button mdl-js-ripple-effect t-black max-width"
+                                    data-lpignore="true">
+                                Sign Up
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-3"></div>
+    </div>
 
 {% endblock %}
