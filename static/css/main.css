@@ -48,6 +48,10 @@ body {
     padding-bottom: 10px;
 }
 
+.b-r-grey-1px-solid {
+    border-right: 1px solid #ddd;
+}
+
 #subscribe-logo {
     text-align: center;
 }
