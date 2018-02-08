@@ -1,6 +1,6 @@
 # NanoNotify WebApp
 
-Web application for https://nanonotify.co
+Web application for https://nanotify.co
 
 ## Installing
 Install pyenv and pipenv. Ensure pyenv installs 3.6.1
