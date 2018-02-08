@@ -4,7 +4,7 @@
         <header class="mdl-layout__header nav-color">
             <div class="mdl-layout__header-row">
                 <div class="mdl-layout-title t-white">
-                    <img class="navbar-logo" src="static/css/resources/pictures/logo.svg" alt="Nano Logo"> Nanotify
+                    <img class="navbar-logo" src="static/css/resources/pictures/logo.svg" alt="Nano Logo">Nanotify
                 </div>
                 <div class="mdl-layout-spacer"></div>
                 <nav class="mdl-navigation">
@@ -17,6 +17,24 @@
                 </nav>
             </div>
         </header>
+        <form action="subscribe" method="get">
+            {% if not subscriptions %}
+                {% block jumbotron %}
+                    <div class="jumbotron bg-white">
+                        <div class="container">
+                            <h2>Welcome to Nanotify!</h2>
+                            <p>To begin, simply add the public key to your account in the subscription field below and
+                                subscribe. Once you have subscribed the accounts you're interest in we immediately begin
+                                to
+                                monitor your account for you, and will email you any time we see your subscribed
+                                accounts
+                                get a
+                                pending or received transaction in the Nano network.</p>
+                        </div>
+                    </div>
+                {% endblock %}
+            {% endif %}
+        </form>
         <main class="mdl-layout__content">
             {% block content %}
                 <div class="container">
@@ -29,7 +47,9 @@
                                 {% endif %}
                             </div>
                             <form class="d-flex" action="subscribe" method="post">
-                                <input class="text-input" placeholder="e.g xrb_3gyoidb4mqb1qf6k8d7caddqfecnkcpe81cppizupwqxbz8fyu3eubp4rhqq" type="text" name="account">
+                                <input class="text-input"
+                                       placeholder="e.g xrb_3gyoidb4mqb1qf6k8d7caddqfecnkcpe81cppizupwqxbz8fyu3eubp4rhqq"
+                                       type="text" name="account">
                                 <input type="hidden" name="action" value="subscribe">
                                 <button type="submit"
                                         class="mdl-button mdl-js-button mdl-js-ripple-effect t-white"
