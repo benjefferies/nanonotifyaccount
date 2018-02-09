@@ -17,7 +17,7 @@
                 </nav>
             </div>
         </header>
-        <form action="get_subscribe" method="get">
+        <input type="hidden" value="get_subscriptions_for_user">
             {% if not subscriptions %}
                 {% block jumbotron %}
                     <div class="jumbotron bg-white">
@@ -34,7 +34,7 @@
                     </div>
                 {% endblock %}
             {% endif %}
-        </form>
+        </input>
         <main class="mdl-layout__content">
             {% block content %}
                 <div class="container">
