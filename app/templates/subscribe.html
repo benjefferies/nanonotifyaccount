@@ -1,91 +1,89 @@
 {% extends "layouts/base.html" %}
 {% block nav %}
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header nav-color">
-            <div class="mdl-layout__header-row">
-                <div class="mdl-layout-title t-white">
-                    <img class="navbar-logo" src="static/css/resources/pictures/logo.svg" alt="Nano Logo">Nanotify
-                </div>
-                <div class="mdl-layout-spacer"></div>
-                <nav class="mdl-navigation">
-                    <a class="mdl-navigation__link t-white" href="/logout">
-                        <button class="mdl-button mdl-js-button mdl-button--raised t-black bg-white"
-                                data-lpignore="true">
-                            Logout
-                        </button>
-                    </a>
-                </nav>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header nav-color">
+        <div class="mdl-layout__header-row">
+            <div class="mdl-layout-title t-white">
+                <img class="navbar-logo" src="static/css/resources/pictures/logo.svg" alt="Nano Logo">Nanotify
             </div>
-        </header>
-        {% if not subscriptions %}
-            {% block jumbotron %}
-                <div class="jumbotron bg-white">
-                    <div class="container">
-                        <h2>Welcome to Nanotify!</h2>
-                        <p>To begin, simply add the public key to your account in the subscription field below and
-                            subscribe. Once you have subscribed the accounts you're interest in we immediately begin
-                            to
-                            monitor your account for you, and will email you any time we see your subscribed
-                            accounts
-                            get a
-                            pending or received transaction in the Nano network.</p>
+            <div class="mdl-layout-spacer"></div>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link t-white" href="/logout">
+                    <button class="mdl-button mdl-js-button mdl-button--raised t-black bg-white"
+                            data-lpignore="true">
+                        Logout
+                    </button>
+                </a>
+            </nav>
+        </div>
+    </header>
+    {% if not subscriptions %}
+    {% block jumbotron %}
+    <div class="jumbotron bg-white">
+        <div class="container">
+            <h2>Welcome to Nanotify!</h2>
+            <p>To begin, simply add a Nano address in the textbox below and subscribe. Once you have subscribed the
+                accounts you're interest in we immediately begin
+                to
+                monitor your accounts for you, and will email you any time we see a pending or received transaction in
+                the Nano network sent to an address you are subscribed to</p>
+        </div>
+    </div>
+    {% endblock %}
+    {% endif %}
+    <main class="mdl-layout__content">
+        {% block content %}
+        <div class="container">
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10 m-20">
+                    <div class="t-centre">
+                        {% if error %}
+                        <p class="error"><strong>{{ error }}</strong></p>
+                        {% endif %}
                     </div>
+                    <form class="d-flex" action="subscribe" method="post">
+                        <input class="text-input"
+                               placeholder="e.g xrb_3gyoidb4mqb1qf6k8d7caddqfecnkcpe81cppizupwqxbz8fyu3eubp4rhqq"
+                               type="text" name="account">
+                        <input type="hidden" name="action" value="subscribe">
+                        <button type="submit"
+                                class="mdl-button mdl-js-button mdl-js-ripple-effect t-white"
+                                data-lpignore="true">
+                            Subscribe
+                        </button>
+                    </form>
                 </div>
-            {% endblock %}
-        {% endif %}
-        <main class="mdl-layout__content">
-            {% block content %}
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-10 m-20">
-                            <div class="t-centre">
-                                {% if error %}
-                                    <p class="error"><strong>{{ error }}</strong></p>
-                                {% endif %}
-                            </div>
-                            <form class="d-flex" action="subscribe" method="post">
-                                <input class="text-input"
-                                       placeholder="e.g xrb_3gyoidb4mqb1qf6k8d7caddqfecnkcpe81cppizupwqxbz8fyu3eubp4rhqq"
-                                       type="text" name="account">
-                                <input type="hidden" name="action" value="subscribe">
-                                <button type="submit"
-                                        class="mdl-button mdl-js-button mdl-js-ripple-effect t-white"
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <table class="mdl-data-table mdl-js-data-table col-md-10 m-20">
+                    <thead>
+                    <tr>
+                        <th class="mdl-data-table__cell--non-numeric">Account</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for subscription in subscriptions %}
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">{{ subscription.account }}</td>
+                        <td>
+                            <form method="post">
+                                <input hidden="hidden" name="account" value="{{ subscription.account }}">
+                                <input type="hidden" name="action" value="delete">
+                                <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect"
                                         data-lpignore="true">
-                                    Subscribe
+                                    <i class="material-icons">delete</i>
                                 </button>
                             </form>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <table class="mdl-data-table mdl-js-data-table col-md-10 m-20">
-                            <thead>
-                            <tr>
-                                <th class="mdl-data-table__cell--non-numeric">Account</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for subscription in subscriptions %}
-                                <tr>
-                                    <td class="mdl-data-table__cell--non-numeric">{{ subscription.account }}</td>
-                                    <td>
-                                        <form method="post">
-                                            <input hidden="hidden" name="account" value="{{ subscription.account }}">
-                                            <input type="hidden" name="action" value="delete">
-                                            <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect"
-                                                    data-lpignore="true">
-                                                <i class="material-icons">delete</i>
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            {% endblock %}
-        </main>
-    </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endblock %}
+    </main>
+</div>
 {% endblock %}
