@@ -1,7 +1,7 @@
 import datetime
 
 import os
-from flask import Flask
+from flask import Flask, send_from_directory, request
 from flask_login import LoginManager
 from werkzeug.utils import redirect
 
@@ -29,7 +29,13 @@ def unauthorized_callback():
     return redirect('/')
 
 
+@app.route('/robots.txt')
+@app.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
-    app.run(debug=True,use_reloader=True)
+    app.run(debug=True, use_reloader=True)
 
