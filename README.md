@@ -1,4 +1,4 @@
-# NanoNotify WebApp
+# Nanotify WebApp
 
 Web application for https://nanotify.co
 
