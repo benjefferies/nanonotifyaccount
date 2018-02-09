@@ -17,24 +17,22 @@
                 </nav>
             </div>
         </header>
-        <input type="hidden" value="get_subscriptions_for_user">
-            {% if not subscriptions %}
-                {% block jumbotron %}
-                    <div class="jumbotron bg-white">
-                        <div class="container">
-                            <h2>Welcome to Nanotify!</h2>
-                            <p>To begin, simply add the public key to your account in the subscription field below and
-                                subscribe. Once you have subscribed the accounts you're interest in we immediately begin
-                                to
-                                monitor your account for you, and will email you any time we see your subscribed
-                                accounts
-                                get a
-                                pending or received transaction in the Nano network.</p>
-                        </div>
+        {% if not subscriptions %}
+            {% block jumbotron %}
+                <div class="jumbotron bg-white">
+                    <div class="container">
+                        <h2>Welcome to Nanotify!</h2>
+                        <p>To begin, simply add the public key to your account in the subscription field below and
+                            subscribe. Once you have subscribed the accounts you're interest in we immediately begin
+                            to
+                            monitor your account for you, and will email you any time we see your subscribed
+                            accounts
+                            get a
+                            pending or received transaction in the Nano network.</p>
                     </div>
-                {% endblock %}
-            {% endif %}
-        </input>
+                </div>
+            {% endblock %}
+        {% endif %}
         <main class="mdl-layout__content">
             {% block content %}
                 <div class="container">
