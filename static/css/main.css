@@ -7,7 +7,12 @@ body {
     position: relative;
     margin: 0;
     min-height: 100%;
-    background: #A2CCE2;
+    background: #6994DD;
+}
+
+.login-nanotify-logo {
+    width: 240px;
+    height: 160px;
 }
 
 #contents {
@@ -15,7 +20,7 @@ body {
 }
 
 .nav-color {
-    background-color: #306E8F !important;
+    background-color: #0E3F93 !important;
 }
 
 .navbar-logo {
@@ -171,6 +176,10 @@ h1 {
 
 .login-and-register-card {
     width: 600px;
+}
+
+.half-height {
+    height: 50%
 }
 
 .max-width {
