@@ -100,13 +100,6 @@ def get_login():
     return render_template('index.html')
 
 
-@nano.route('/subscribe', methods=['GET'])
-@login_required
-def getsubs():
-    subscriptions = get_subscriptions_for_user()
-    return render_template('subscribe.html', subscriptions=subscriptions)
-
-
 @nano.route('/subscribe', methods=['POST'])
 @login_required
 def subscribe():
