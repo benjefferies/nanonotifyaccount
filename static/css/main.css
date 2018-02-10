@@ -126,11 +126,15 @@ body {
 }
 
 .m-t-20 {
-    margin-top: 20px;
+    margin-top: 20px !important;
 }
 
 .m-20 {
     margin-top: 20px;
+}
+
+.m-auto {
+    margin: auto;
 }
 
 .text-input {
