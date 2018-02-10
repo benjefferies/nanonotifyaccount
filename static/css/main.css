@@ -137,13 +137,26 @@ body {
     margin: auto;
 }
 
+.p-8 {
+    padding: 8px !important;
+}
+
+.m-4 {
+    margin: 4px !important;
+}
+
+.button-color-b-on-w {
+    background-color: white !important;
+    color: black !important;
+}
+
 .text-input {
     width: 100%;
     -webkit-appearance: none;
     border: none;
     border-radius: 3px;
     padding: 8px;
-    margin: 4px;
+    margin: 12px;
 }
 
 .login-process .button-input {
