@@ -121,8 +121,33 @@ body {
     display: flex;
 }
 
+.m-t-10 {
+    margin-top: 10px;
+}
+
+.m-t-20 {
+    margin-top: 20px !important;
+}
+
 .m-20 {
     margin-top: 20px;
+}
+
+.m-auto {
+    margin: auto;
+}
+
+.p-8 {
+    padding: 8px !important;
+}
+
+.m-4 {
+    margin: 4px !important;
+}
+
+.button-color-b-on-w {
+    background-color: white !important;
+    color: black !important;
 }
 
 .text-input {
@@ -131,7 +156,7 @@ body {
     border: none;
     border-radius: 3px;
     padding: 8px;
-    margin: 4px;
+    margin: 12px;
 }
 
 .login-process .button-input {
