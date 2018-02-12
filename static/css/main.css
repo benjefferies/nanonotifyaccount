@@ -53,6 +53,14 @@ body {
     padding-bottom: 10px;
 }
 
+.color-black {
+    color: black;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
 .b-r-grey-1px-solid {
     border-right: 1px solid #ddd;
 }
@@ -71,6 +79,10 @@ body {
     padding: 15px;
     width: 50%;
     margin: 0px auto;
+}
+
+.fb-fill {
+    fill: #3b5998;
 }
 
 .noselect {
