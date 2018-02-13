@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/benjefferies/nanonotifyaccount.svg?branch=master)](https://travis-ci.org/benjefferies/nanonotifyaccount)
 # Nanotify WebApp
 
 Web application for https://nanotify.co
