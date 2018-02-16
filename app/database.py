@@ -3,7 +3,9 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-engine = create_engine(os.getenv('DATABASE_URL', 'sqlite:///:memory:'), convert_unicode=True)
+from app.config import DATABASE_URL
+
+engine = create_engine(DATABASE_URL, convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False,
                                          autoflush=False,
                                          bind=engine))
