@@ -5,15 +5,16 @@ from flask import Flask, send_from_directory, request
 from flask_login import LoginManager
 from werkzeug.utils import redirect
 
+from app.config import BCRYPT_SECRET
 from app.database import init_db
 from app.models import User
 from app.routes import nano
 
 app = Flask(__name__)
 PERMANENT_SESSION_LIFETIME = datetime.timedelta(minutes=30)
-app.secret_key = os.getenv('BCRYPT_SECRET', 'secret')
+app.secret_key = BCRYPT_SECRET
 app.register_blueprint(nano)
-app.config['TEMPLATES_AUTO_RELOAD']=True
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 login_manager = LoginManager()
 login_manager.init_app(app)
 init_db()
