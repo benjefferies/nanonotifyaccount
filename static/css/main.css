@@ -10,6 +10,12 @@ body {
     background: #6994DD;
 }
 
+#footer {
+    position: absolute;
+    bottom: 0;
+    margin-top: 100px;
+}
+
 .login-nanotify-logo {
     width: 240px;
     height: 160px;
@@ -143,6 +149,10 @@ body {
 
 .m-20 {
     margin-top: 20px;
+}
+
+.m-b-100 {
+    margin-bottom: 100px;
 }
 
 .m-auto {
