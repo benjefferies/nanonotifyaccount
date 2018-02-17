@@ -4,10 +4,10 @@ import re
 
 import bcrypt
 import flask
-import os
 import requests
-from flask import render_template, Blueprint, url_for, request, session
+from flask import render_template, Blueprint, url_for, request
 from flask_login import login_required, login_user, current_user, logout_user
+from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.utils import redirect
 
@@ -51,7 +51,7 @@ def handle_exception(e):
 def login():
     email = request.form['email']
     password = request.form['password']
-    user = db_session.query(User).filter(User.email == email).first()
+    user = db_session.query(User).filter(func.lower(User.email) == func.lower(email)).first()
     logger.info(f'Attempt to login user {email}')
     if user and bcrypt.checkpw(password.encode(), user.password):
         logger.info(f'{email} logged in')
@@ -113,7 +113,7 @@ def subscribe():
             if subscription.account == account:
                 subscriptions.remove(subscription)
                 db_session.delete(subscription)
-    elif not db_session.query(Subscription).filter(Subscription.email == current_user.email) \
+    elif not db_session.query(Subscription).filter(func.lower(Subscription.email) == func.lower(current_user.email)) \
             .filter(Subscription.account == account).first():
         logger.info(f'{current_user.email} adding subscription to {account}')
         subscription = Subscription(email=current_user.email, account=account)
@@ -131,5 +131,5 @@ def get_subscriptions_for_user():
 def get_subscribe():
     email = current_user.email
     logger.info(f'{email} getting subscriptions')
-    subscriptions = db_session.query(Subscription).filter(Subscription.email == email).all()
+    subscriptions = db_session.query(Subscription).filter(func.lower(Subscription.email) == func.lower(current_user.email)).all()
     return render_template('subscribe.html', subscriptions=subscriptions)
