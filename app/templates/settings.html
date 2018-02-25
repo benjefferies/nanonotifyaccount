@@ -7,7 +7,7 @@
             </div>
             <div class="mdl-layout-spacer"></div>
             <nav class="mdl-navigation">
-                <a class="mdl-navigation__link t-white" href="subscribe">
+                <a class="mdl-navigation__link t-white" href="/subscribe">
                     <i class="material-icons md-36">exit_to_app</i>
                 </a>
                 <a class="mdl-navigation__link t-white" href="/settings">
@@ -21,18 +21,6 @@
             </nav>
         </div>
     </header>
-    {% if not subscriptions %} {% block jumbotron %}
-    <div class="jumbotron bg-white">
-        <div class="container">
-            <h2 class="t-centre">Welcome to Nanotify!</h2>
-            <p class="t-centre">
-                To begin, simply add a Nano address in the textbox below and subscribe. Once you have subscribed to the accounts you’re interested
-                in we immediately begin monitoring the Nano network for pending or received transactions sent to those accounts
-                you have subscribed to.
-            </p>
-        </div>
-    </div>
-    {% endblock %} {% endif %}
     <main class="mdl-layout__content">
         {% block content %}
         <div class="container">
@@ -49,13 +37,12 @@
                     <div class="row">
                         <div class="col"></div>
                         <div class="col-12">
-                            <form class="d-flex" action="subscribe" method="post">
-                                <input class="text-input" placeholder="e.g xrb_3gyoidb4mqb1qf6k8d7caddqfecnkcpe81cppizupwqxbz8fyu3eubp4rhqq" type="text"
-                                    name="account" />
-                                <input type="hidden" name="action" value="subscribe" />
+                            <form class="d-flex" action="settings" method="post">
+                                <input class="text-input" placeholder="e.g https://hooks.slack.com/services" type="text"
+                                    name="webhook" value="{{webhook if webhook else ''}}"/>
                                 <div class="p-8 m-4">
                                     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-color-b-on-w" data-lpignore="true">
-                                        Subscribe
+                                        Add
                                     </button>
                                 </div>
                             </form>
@@ -64,33 +51,6 @@
                     </div>
                 </div>
                 <div class="col"></div>
-            </div>
-            <div class="row">
-                <div class="col-12 table-responsive">
-                    <table class="mdl-data-table mdl-js-data-table max-width m-auto m-t-20">
-                        <thead>
-                            <tr>
-                                <th class="mdl-data-table__cell--non-numeric">Account</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for subscription in subscriptions %}
-                            <tr>
-                                <td class="mdl-data-table__cell--non-numeric">{{ subscription.account }}</td>
-                                <td>
-                                    <form method="post">
-                                        <input hidden="hidden" name="account" value="{{ subscription.account }}">
-                                        <input type="hidden" name="action" value="delete">
-                                        <button type="submit" class="mdl-button mdl-js-button mdl-js-ripple-effect" data-lpignore="true">
-                                            <i class="material-icons">delete</i>
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
         <div id="footer" class="container-fluid">

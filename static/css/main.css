@@ -232,3 +232,7 @@ h1 {
 .max-width {
     width: 100%;
 }
+
+.md-36 {
+    font-size: 36px;
+}
