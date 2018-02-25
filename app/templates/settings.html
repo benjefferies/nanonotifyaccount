@@ -21,6 +21,23 @@
             </nav>
         </div>
     </header>
+    {% if not webhook %} {% block jumbotron %}
+    <div class="jumbotron bg-white">
+        <div class="container">
+            <p class="t-centre">
+                Add a webhook like <a href="xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh">Slack</a> or integrate with your own apps.
+                <br>
+                The webhook comes in the comes in JSON form. e.g.
+                {
+                   "account":"xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh",
+                   "amount":10.94,
+                   "type":"received",
+                   "text":"Received 10.94 XRB at xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh"
+                }
+            </p>
+        </div>
+    </div>
+    {% endblock %} {% endif %}
     <main class="mdl-layout__content">
         {% block content %}
         <div class="container">
@@ -38,8 +55,9 @@
                         <div class="col"></div>
                         <div class="col-12">
                             <form class="d-flex" action="settings" method="post">
-                                <input class="text-input" placeholder="e.g https://hooks.slack.com/services" type="text"
+                                <input id="webhook" class="text-input" placeholder="Add a webhook e.g https://hooks.slack.com/services" type="text"
                                     name="webhook" value="{{webhook if webhook else ''}}"/>
+                                <div class="mdl-tooltip" data-mdl-for="webhook">Add a <strong>Webhook</strong> like Slack</div>
                                 <div class="p-8 m-4">
                                     <button type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect button-color-b-on-w" data-lpignore="true">
                                         Add
