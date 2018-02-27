@@ -1,6 +1,7 @@
 import unittest
 
-from app.database import init_db
+from app.database import init_db, db_session
+from app.models import Subscription
 from run import app
 
 
@@ -154,6 +155,24 @@ class TestRoutes(unittest.TestCase):
         # Then
         assert b'Welcome to Nanotify!' in resp.data
 
+    def test_get_subscriptions_with_webhook(self):
+        # Given
+        data = {
+            'email': 'test_get_subscriptions_with_webhook@example.com',
+            'password': 'password'
+        }
+        self.app.post('/register', data=data)
+        self.app.post('/', data=data)
+        resp = self.app.post('/settings', data={'webhook': 'http://mywebhook.com'})
+
+        # When
+        self.app.post('/subscribe', data={'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh',
+                                            'action': 'subscribe'})
+
+        # Then
+        subscription = db_session.query(Subscription).filter(Subscription.email == data['email']).first()
+        assert 'http://mywebhook.com' == subscription.webhook
+
     def test_get_subscriptions_after_subscribing(self):
         # Given
         data = {
@@ -164,7 +183,7 @@ class TestRoutes(unittest.TestCase):
         self.app.post('/', data=data)
 
         # When
-        resp = self.app.post('/subscribe', data={'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh',
+        self.app.post('/subscribe', data={'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh',
                                             'action': 'subscribe'})
 
         # Then
@@ -202,3 +221,65 @@ class TestRoutes(unittest.TestCase):
 
         # Then
         assert b'Add an account in the correct format' in resp.data
+
+    def test_get_settings_page(self):
+        # Given
+        data = {
+            'email': 'test@example.com',
+            'password': 'password'
+        }
+        self.app.post('/register', data=data)
+        self.app.post('/', data=data)
+
+        # When
+        resp = self.app.get('/settings')
+
+        # Then
+        assert 200 == resp.status_code
+        assert b'Add' in resp.data
+
+    def test_save_webhook_on_settings_page(self):
+        # Given
+        data = {
+            'email': 'test@example.com',
+            'password': 'password'
+        }
+        self.app.post('/register', data=data)
+        self.app.post('/', data=data)
+
+        # When
+        resp = self.app.post('/settings', data={'webhook': 'http://mywebhook.com'})
+
+        # Then
+        assert b'http://mywebhook.com' in resp.data
+
+    def test_settings_after_save_webhook(self):
+        # Given
+        data = {
+            'email': 'test@example.com',
+            'password': 'password'
+        }
+        self.app.post('/register', data=data)
+        self.app.post('/', data=data)
+        resp = self.app.post('/settings', data={'webhook': 'http://mywebhook.com'})
+
+        # When
+        resp = self.app.get('/settings')
+
+        # Then
+        assert b'http://mywebhook.com' in resp.data
+
+    def test_save_invalid_webhook_on_settings_page(self):
+        # Given
+        data = {
+            'email': 'test@example.com',
+            'password': 'password'
+        }
+        self.app.post('/register', data=data)
+        self.app.post('/', data=data)
+
+        # When
+        resp = self.app.post('/settings', data={'webhook': 'htt://mywebhook.com'})
+
+        # Then
+        assert b'Webhook is invalid' in resp.data

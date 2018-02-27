@@ -19,6 +19,14 @@ logger = logging.getLogger(__name__)
 
 nano = Blueprint('profile', __name__, template_folder='templates', static_folder='static')
 
+url_regex = re.compile(
+        r'^(?:http|ftp)s?://' # http:// or https://
+        r'(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+(?:[A-Z]{2,6}\.?|[A-Z0-9-]{2,}\.?)|' #domain...
+        r'localhost|' #localhost...
+        r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
+        r'(?::\d+)?' # optional port
+        r'(?:/?|[/?]\S+)$', re.IGNORECASE)
+
 
 @nano.teardown_app_request
 def shutdown_session(exception=None):
@@ -116,7 +124,7 @@ def subscribe():
     elif not db_session.query(Subscription).filter(func.lower(Subscription.email) == func.lower(current_user.email)) \
             .filter(Subscription.account == account).first():
         logger.info(f'{current_user.email} adding subscription to {account}')
-        subscription = Subscription(email=current_user.email, account=account)
+        subscription = Subscription(email=current_user.email, account=account, webhook=current_user.webhook)
         db_session.add(subscription)
         subscriptions.append(subscription)
     return render_template('subscribe.html', subscriptions=subscriptions)
@@ -133,3 +141,24 @@ def get_subscribe():
     logger.info(f'{email} getting subscriptions')
     subscriptions = db_session.query(Subscription).filter(func.lower(Subscription.email) == func.lower(current_user.email)).all()
     return render_template('subscribe.html', subscriptions=subscriptions)
+
+
+@nano.route('/settings', methods=['GET'])
+@login_required
+def get_settings():
+    logger.info(f'{current_user.email} getting settings')
+    return render_template('settings.html', webhook=current_user.webhook)
+
+
+@nano.route('/settings', methods=['POST'])
+@login_required
+def save_settings():
+    webhook = request.form.get('webhook')
+    email = current_user.email
+    logger.info(f'{email} saving webhook {webhook}')
+    if webhook and url_regex.match(webhook):
+        current_user.webhook=webhook
+        db_session.merge(current_user)
+    else:
+        return render_template('settings.html', webhook=webhook, error='Webhook is invalid')
+    return render_template('settings.html', webhook=webhook)
