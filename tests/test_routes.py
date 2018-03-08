@@ -1,3 +1,4 @@
+import json
 import unittest
 
 from app.database import init_db, db_session
@@ -227,7 +228,7 @@ class TestRoutes(unittest.TestCase):
         account = {'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6z_my_account'}
 
         # When
-        resp = self.app.post('/mobile/subscribe', data=account)
+        resp = self.app.post('/mobile/subscribe', content_type='application/json', data=json.dumps(account))
 
         # Then
         assert 400 == resp.status_code
@@ -237,7 +238,7 @@ class TestRoutes(unittest.TestCase):
         account = {'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44op'}
 
         # When
-        resp = self.app.post('/mobile/subscribe', data=account)
+        resp = self.app.post('/mobile/subscribe', content_type='application/json', data=json.dumps(account))
 
         # Then
         assert 201 == resp.status_code
@@ -245,10 +246,10 @@ class TestRoutes(unittest.TestCase):
     def test_mobile_double_subscribe_to_account(self):
         # Given
         account = {'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh'}
-        self.app.post('/mobile/subscribe', data=account)
+        self.app.post('/mobile/subscribe', content_type='application/json', data=json.dumps(account))
 
         # When
-        resp = self.app.post('/mobile/subscribe', data=account)
+        resp = self.app.post('/mobile/subscribe', content_type='application/json', data=json.dumps(account))
 
         # Then
         assert 409 == resp.status_code
