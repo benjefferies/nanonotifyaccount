@@ -222,6 +222,37 @@ class TestRoutes(unittest.TestCase):
         # Then
         assert b'Add an account in the correct format' in resp.data
 
+    def test_mobile_subscribe_to_invalid_format_account(self):
+        # Given
+        account = {'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6z_my_account'}
+
+        # When
+        resp = self.app.post('/mobile/subscribe', data=account)
+
+        # Then
+        assert 400 == resp.status_code
+
+    def test_mobile_subscribe_to_account(self):
+        # Given
+        account = {'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44op'}
+
+        # When
+        resp = self.app.post('/mobile/subscribe', data=account)
+
+        # Then
+        assert 201 == resp.status_code
+
+    def test_mobile_double_subscribe_to_account(self):
+        # Given
+        account = {'account': 'xrb_1niabkx3gbxit5j5yyqcpas71dkffggbr6zpd3heui8rpoocm5xqbdwq44oh'}
+        self.app.post('/mobile/subscribe', data=account)
+
+        # When
+        resp = self.app.post('/mobile/subscribe', data=account)
+
+        # Then
+        assert 409 == resp.status_code
+
     def test_get_settings_page(self):
         # Given
         data = {
