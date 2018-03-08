@@ -5,7 +5,7 @@ import re
 import bcrypt
 import flask
 import requests
-from flask import render_template, Blueprint, url_for, request
+from flask import render_template, Blueprint, url_for, request, Response
 from flask_login import login_required, login_user, current_user, logout_user
 from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
@@ -112,8 +112,8 @@ def get_login():
 @login_required
 def subscribe():
     account = request.form.get('account')
-    subscriptions = get_subscriptions_for_user()
-    if not account or not re.match('xrb_[a-zA-Z0-9]{60}', account):
+    subscriptions = _get_subscriptions_for_user()
+    if _is_invalid_account(account):
         return render_template('subscribe.html', error='Add an account in the correct format', subscriptions=subscriptions)
     if request.form['action'] == 'delete':
         logger.info(f'{current_user.email} deleting subscription to {account}')
@@ -124,13 +124,34 @@ def subscribe():
     elif not db_session.query(Subscription).filter(func.lower(Subscription.email) == func.lower(current_user.email)) \
             .filter(Subscription.account == account).first():
         logger.info(f'{current_user.email} adding subscription to {account}')
-        subscription = Subscription(email=current_user.email, account=account, webhook=current_user.webhook)
+        subscription = Subscription(account=account, email=current_user.email, webhook=current_user.webhook)
         db_session.add(subscription)
         subscriptions.append(subscription)
     return render_template('subscribe.html', subscriptions=subscriptions)
 
 
-def get_subscriptions_for_user():
+@nano.route('/mobile/subscribe', methods=['POST'])
+def mobile_subscribe():
+    account = request.form.get('account')
+    if _is_invalid_account(account):
+        return Response(status=400)
+
+    if not db_session.query(Subscription).filter(func.lower(Subscription.account) == func.lower(account)) \
+            .filter(Subscription.account == account).first():
+        logger.info(f'Subscribing to {account}')
+        subscription = Subscription(account=account)
+        db_session.add(subscription)
+    else:
+        return Response(status=409)
+
+    return Response(status=201)
+
+
+def _is_invalid_account(account):
+    return not account or not re.match('xrb_[a-zA-Z0-9]{60}', account)
+
+
+def _get_subscriptions_for_user():
     return db_session.query(Subscription).filter(Subscription.email == current_user.email).all()
 
 
