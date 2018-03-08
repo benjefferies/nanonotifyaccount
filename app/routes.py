@@ -134,6 +134,7 @@ def subscribe():
 def mobile_subscribe():
     account = request.form.get('account')
     if _is_invalid_account(account):
+        logger.info(f'Invalid account {account}')
         return Response(status=400)
 
     if not db_session.query(Subscription).filter(func.lower(Subscription.account) == func.lower(account)) \
