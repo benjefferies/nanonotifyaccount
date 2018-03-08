@@ -132,7 +132,7 @@ def subscribe():
 
 @nano.route('/mobile/subscribe', methods=['POST'])
 def mobile_subscribe():
-    account = request.form.get('account')
+    account = request.json.get('account')
     if _is_invalid_account(account):
         logger.info(f'Invalid account {account}')
         return Response(status=400)
