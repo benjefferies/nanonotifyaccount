@@ -5,13 +5,14 @@ import re
 import bcrypt
 import flask
 import requests
-from flask import render_template, Blueprint, url_for, request, Response
+from flask import render_template, Blueprint, url_for, request, Response, json
 from flask_login import login_required, login_user, current_user, logout_user
+from requests import RequestException
 from sqlalchemy import func
 from sqlalchemy.exc import SQLAlchemyError
 from werkzeug.utils import redirect
 
-from app.config import RECAPTCHA_SECRET
+from app.config import RECAPTCHA_SECRET, NANO_HOST
 from app.database import db_session
 from app.models import Subscription, User
 
@@ -47,6 +48,12 @@ def before_request():
     nano.permanent_session_lifetime = datetime.timedelta(minutes=30)
     flask.session.modified = True
     flask.g.user = current_user
+
+
+@nano.app_errorhandler(RequestException)
+def handle_request_exception(e):
+    logger.exception(str(e))
+    return Response(status=500)
 
 
 @nano.app_errorhandler(Exception)
@@ -128,6 +135,19 @@ def subscribe():
         db_session.add(subscription)
         subscriptions.append(subscription)
     return render_template('subscribe.html', subscriptions=subscriptions)
+
+
+@nano.route('/transactions/<account>', methods=['GET'])
+def get_transactions(account):
+    if _is_invalid_account(account):
+        return Response(status=400)
+    data = {
+        'action': 'account_history',
+        'account': account,
+        'count': 10
+    }
+    transactions = requests.post(f'http://{NANO_HOST}:7076', json.dumps(data))
+    return json.dumps(transactions.json().get('history', []))
 
 
 @nano.route('/mobile/subscribe', methods=['POST'])
