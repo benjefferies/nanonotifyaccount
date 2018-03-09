@@ -1,6 +1,9 @@
 import json
 import unittest
 
+import requests_mock
+from requests import ConnectTimeout
+
 from app.database import init_db, db_session
 from app.models import Subscription
 from run import app
@@ -315,3 +318,50 @@ class TestRoutes(unittest.TestCase):
 
         # Then
         assert b'Webhook is invalid' in resp.data
+
+    @requests_mock.mock()
+    def test_get_transaction_history(self, mock_request):
+        # Given
+        data = {
+            "history": [
+                {
+                    "type": "receive",
+                    "account": "xrb_3txm99yb6yq1t56iznzthbmjy9wntg61itxusqkhiixh4fz38i7rhsmyjt7a",
+                    "amount": "120568492000000000000000000000",
+                    "hash": "89F14F380D84746B014323E78985FC1750D64C1345A9870AC4F749250AA6C82D"
+                }
+            ]
+        }
+        mock_request.post('http://[::1]:7076', text=json.dumps(data))
+
+        # When
+        resp = self.app.get('/transactions/xrb_3txm99yb6yq1t56iznzthbmjy9wntg61itxusqkhiixh4fz38i7rhsmyjt7a')
+
+        # Then
+        assert 200 == resp.status_code
+        history = json.loads(resp.data)
+        assert history[0]['type'] == "receive"
+        assert history[0]['account'] == "xrb_3txm99yb6yq1t56iznzthbmjy9wntg61itxusqkhiixh4fz38i7rhsmyjt7a"
+        assert history[0]['amount'] == "120568492000000000000000000000"
+        assert history[0]['hash'] == "89F14F380D84746B014323E78985FC1750D64C1345A9870AC4F749250AA6C82D"
+
+    @requests_mock.mock()
+    def test_get_transaction_history_raises_exception(self, mock_request):
+        # Given
+        mock_request.post('http://[::1]:7076', exc=ConnectTimeout)
+
+        # When
+        resp = self.app.get('/transactions/xrb_3txm99yb6yq1t56iznzthbmjy9wntg61itxusqkhiixh4fz38i7rhsmyjt7a')
+
+        # Then
+        assert 500 == resp.status_code
+
+    @requests_mock.mock()
+    def test_get_transaction_history_invalid_account(self, mock_request):
+        # Given
+        account = "nano_account"
+        # When
+        resp = self.app.get(f'/transactions/{account}')
+
+        # Then
+        assert 400 == resp.status_code

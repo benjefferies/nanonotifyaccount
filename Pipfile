@@ -19,6 +19,7 @@ flask-sqlalchemy = "*"
 bcrypt = "*"
 gunicorn = "*"
 requests = "*"
+requests-mock = "*"
 
 
 [dev-packages]
